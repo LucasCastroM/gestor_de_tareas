@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis Tareas</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Tu CSS personalizado -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h1 class="card-title text-center mb-4 text-primary">Gestor de Tareas</h1>
+                        <ul class="list-group mb-4">
+                            {% for tarea in tareas %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>
+                                        {% if tarea['completado'] %}
+                                            <s class="text-muted">{{ tarea['texto'] }}</s>
+                                        {% else %}
+                                            {{ tarea['texto'] }}
+                                        {% endif %}
+                                    </span>
+                                    {% if not tarea['completado'] %}
+                                        <a href="/completar/{{ tarea['id'] }}" class="btn btn-success btn-sm">Completar</a>
+                                    {% endif %}
+                                </li>
+                            {% else %}
+                                <li class="list-group-item text-center text-muted">No hay tareas aún.</li>
+                            {% endfor %}
+                        </ul>
+                        <form action="/agregar" method="post" class="d-flex gap-2">
+                            <input type="text" name="texto_tarea" class="form-control" placeholder="Nueva tarea" required>
+                            <button type="submit" class="btn btn-primary">Agregar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
