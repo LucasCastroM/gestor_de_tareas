@@ -18,7 +18,7 @@ def cargar_datos():
             tareas = data['tareas']
             siguiente_id = data['siguiente_id']
     except FileNotFoundError:
-        pass  # Si el archivo no existe, no hace nada
+        pass 
 
 # Cargar datos al iniciar el programa
 cargar_datos()
